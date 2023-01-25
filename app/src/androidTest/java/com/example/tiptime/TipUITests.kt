@@ -24,6 +24,7 @@ import androidx.compose.ui.test.performTextInput
 import com.example.tiptime.ui.theme.TipTimeTheme
 import org.junit.Rule
 import org.junit.Test
+import java.text.NumberFormat
 
 class TipUITests {
 
@@ -41,7 +42,8 @@ class TipUITests {
         }
         composeTestRule.onNodeWithText("Cost of Service").performTextInput("10")
         composeTestRule.onNodeWithText("Tip (%)").performTextInput("20")
-        composeTestRule.onNodeWithText("Tip Amount: $2.00").assertExists(
+        val expectedTip = NumberFormat.getCurrencyInstance().format(2)
+        composeTestRule.onNodeWithText("Tip Amount: $expectedTip").assertExists(
             "No node with this text was found."
         )
     }

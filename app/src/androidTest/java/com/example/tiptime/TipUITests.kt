@@ -40,7 +40,7 @@ class TipUITests {
                 }
             }
         }
-        composeTestRule.onNodeWithText("Cost of Service").performTextInput("10")
+        composeTestRule.onNodeWithText("Bill Amount").performTextInput("10")
         composeTestRule.onNodeWithText("Tip (%)").performTextInput("20")
         val expectedTip = NumberFormat.getCurrencyInstance().format(2)
         composeTestRule.onNodeWithText("Tip Amount: $expectedTip").assertExists(

@@ -154,7 +154,7 @@ fun RoundTheTipRow(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .size(48.dp),
         verticalAlignment = Alignment.CenterVertically

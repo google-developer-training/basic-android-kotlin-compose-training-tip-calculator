@@ -46,7 +46,8 @@ private val LightColorScheme = lightColorScheme(
 fun TipTimeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Dynamic color in this app is turned off for learning purposes
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

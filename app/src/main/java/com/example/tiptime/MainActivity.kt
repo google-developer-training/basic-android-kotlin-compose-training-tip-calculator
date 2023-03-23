@@ -18,23 +18,23 @@ package com.example.tiptime
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -45,8 +45,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -75,7 +75,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TipTimeScreen() {
+fun TipTimeScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.padding(40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(R.string.calculate_tip),
+            style = MaterialTheme.typography.displayMedium
+        )
+        TipTimeLayout(modifier = Modifier.weight(1.0f, true))
+    }
+}
+
+@Composable
+fun TipTimeLayout(modifier: Modifier = Modifier) {
     var amountInput by remember { mutableStateOf("") }
     var tipInput by remember { mutableStateOf("") }
     var roundUp by remember { mutableStateOf(false) }
@@ -87,17 +102,13 @@ fun TipTimeScreen() {
     val focusManager = LocalFocusManager.current
 
     Column(
-        modifier = Modifier.padding(32.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = stringResource(R.string.calculate_tip),
-            fontSize = 24.sp,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-        Spacer(Modifier.height(16.dp))
         EditNumberField(
             label = R.string.bill_amount,
+            leadingIcon = R.drawable.money,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
@@ -106,10 +117,12 @@ fun TipTimeScreen() {
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
             value = amountInput,
-            onValueChanged = { amountInput = it }
+            onValueChanged = { amountInput = it },
+            modifier = Modifier.padding(bottom = 32.dp),
         )
         EditNumberField(
             label = R.string.how_was_the_service,
+            leadingIcon = R.drawable.percent,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -118,14 +131,18 @@ fun TipTimeScreen() {
                 onDone = { focusManager.clearFocus() }
             ),
             value = tipInput,
-            onValueChanged = { tipInput = it }
+            onValueChanged = { tipInput = it },
+            modifier = Modifier.padding(bottom = 32.dp)
         )
-        RoundTheTipRow(roundUp = roundUp, onRoundUpChanged = { roundUp = it })
-        Spacer(Modifier.height(24.dp))
+        RoundTheTipRow(
+            roundUp = roundUp,
+            onRoundUpChanged = { roundUp = it },
+            modifier = Modifier.padding(bottom = 32.dp)
+        )
         Text(
             text = stringResource(R.string.tip_amount, tip),
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            fontSize = 20.sp,
+            modifier = Modifier.padding(32.dp),
+            fontSize = 25.sp,
             fontWeight = FontWeight.Bold
         )
     }
@@ -134,6 +151,7 @@ fun TipTimeScreen() {
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
     keyboardOptions: KeyboardOptions,
     keyboardActions: KeyboardActions,
     value: String,
@@ -143,7 +161,9 @@ fun EditNumberField(
     TextField(
         value = value,
         singleLine = true,
+        leadingIcon = { Icon(painter = painterResource(id = leadingIcon), null) },
         modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
         onValueChange = onValueChanged,
         label = { Text(stringResource(label)) },
         keyboardOptions = keyboardOptions,
@@ -158,7 +178,7 @@ fun RoundTheTipRow(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .size(48.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -170,9 +190,6 @@ fun RoundTheTipRow(
                 .wrapContentWidth(Alignment.End),
             checked = roundUp,
             onCheckedChange = onRoundUpChanged,
-            colors = SwitchDefaults.colors(
-                uncheckedThumbColor = Color.DarkGray
-            )
         )
     }
 }
@@ -189,7 +206,7 @@ private fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boo
     return NumberFormat.getCurrencyInstance().format(tip)
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun TipTimeScreenPreview() {
     TipTimeTheme {

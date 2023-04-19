@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.example.tiptime
 
-buildscript {
-    ext {
-        compose_compiler_version = '1.4.3'
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import java.text.NumberFormat
+
+class TipCalculatorTests {
+
+    @Test
+    fun calculate_20_percent_tip_no_roundup() {
+        val amount = 10.00
+        val tipPercent = 20.00
+        val expectedTip = NumberFormat.getCurrencyInstance().format(2)
+        val actualTip = calculateTip(amount = amount, tipPercent = tipPercent, false)
+        assertEquals(expectedTip, actualTip)
     }
-}
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id 'com.android.application' version '8.0.0' apply false
-    id 'com.android.library' version '8.0.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.10' apply false
 }

@@ -145,7 +145,7 @@ private fun calculateTip(amount: Double, tipPercent: Double = 15.0): String {
 
 @Preview(showBackground = true)
 @Composable
-fun TipTimeScreenPreview() {
+fun TipTimeLayoutPreview() {
     TipTimeTheme {
         TipTimeLayout()
     }

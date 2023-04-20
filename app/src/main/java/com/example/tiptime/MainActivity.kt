@@ -198,7 +198,7 @@ fun RoundTheTipRow(
  * Example would be "$10.00".
  */
 @VisibleForTesting
-fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): String {
+internal fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): String {
     var tip = tipPercent / 100 * amount
     if (roundUp) {
         tip = kotlin.math.ceil(tip)
@@ -208,7 +208,7 @@ fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): S
 
 @Preview(showBackground = true)
 @Composable
-fun TipTimeScreenPreview() {
+fun TipTimeLayoutPreview() {
     TipTimeTheme {
         TipTimeLayout()
     }

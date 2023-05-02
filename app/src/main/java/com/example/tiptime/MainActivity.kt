@@ -32,8 +32,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -49,7 +47,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -96,7 +93,6 @@ fun TipTimeLayout() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        val largePadding = 32.dp
         Text(
             text = stringResource(R.string.calculate_tip),
             modifier = Modifier
@@ -110,12 +106,9 @@ fun TipTimeLayout() {
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             ),
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-            ),
             value = amountInput,
             onValueChanged = { amountInput = it },
-            modifier = Modifier.padding(bottom = largePadding).fillMaxWidth(),
+            modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
         )
         EditNumberField(
             label = R.string.how_was_the_service,
@@ -124,17 +117,14 @@ fun TipTimeLayout() {
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
             ),
-            keyboardActions = KeyboardActions(
-                onDone = { focusManager.clearFocus() }
-            ),
             value = tipInput,
             onValueChanged = { tipInput = it },
-            modifier = Modifier.padding(bottom = largePadding).fillMaxWidth(),
+            modifier = Modifier.padding(bottom = 32.dp).fillMaxWidth(),
         )
         RoundTheTipRow(
             roundUp = roundUp,
             onRoundUpChanged = { roundUp = it },
-            modifier = Modifier.padding(bottom = largePadding)
+            modifier = Modifier.padding(bottom = 32.dp)
         )
         Text(
             text = stringResource(R.string.tip_amount, tip),
@@ -149,7 +139,6 @@ fun EditNumberField(
     @StringRes label: Int,
     @DrawableRes leadingIcon: Int,
     keyboardOptions: KeyboardOptions,
-    keyboardActions: KeyboardActions,
     value: String,
     onValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -159,11 +148,9 @@ fun EditNumberField(
         singleLine = true,
         leadingIcon = { Icon(painter = painterResource(id = leadingIcon), null) },
         modifier = modifier,
-        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         onValueChange = onValueChanged,
         label = { Text(stringResource(label)) },
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions
+        keyboardOptions = keyboardOptions
     )
 }
 

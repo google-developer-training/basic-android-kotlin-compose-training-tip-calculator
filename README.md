@@ -1,7 +1,7 @@
 Tip Time - Solution Code
 =================================
 
-Solution code for the [Android Basics with Compose](https://developer.android.com/courses/android-basics-compose/course): Tip Time app.
+Starter code for the [Android Basics with Compose](https://developer.android.com/courses/android-basics-compose/course): Tip Time app.
 
 
 Introduction

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
-
 pluginManagement {
     repositories {
         gradlePluginPortal()

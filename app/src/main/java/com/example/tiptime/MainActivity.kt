@@ -29,7 +29,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -161,9 +160,7 @@ fun RoundTheTipRow(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .size(48.dp),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(text = stringResource(R.string.round_up_tip))

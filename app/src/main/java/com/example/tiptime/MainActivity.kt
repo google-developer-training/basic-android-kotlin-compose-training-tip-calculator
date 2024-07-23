@@ -101,7 +101,7 @@ fun TipTimeLayout() {
         Spacer(modifier = Modifier.height(150.dp))
     }
 }
-
+// check
 /**
  * Calculates the tip based on the user input and format the tip amount
  * according to the local currency.

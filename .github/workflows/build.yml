@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - starter
+      - state
 
 jobs:
   build:
